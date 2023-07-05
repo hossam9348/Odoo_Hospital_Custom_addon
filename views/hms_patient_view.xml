@@ -1,0 +1,76 @@
+<odoo>
+    <data>
+        <record id = 'hms_patient_action'
+                model = 'ir.actions.act_window'>
+                <field name="res_model">hms.patient</field>
+            <field name="name"> patients</field>
+        </record>
+
+
+
+        <record id = 'patient_tree_view' model="ir.ui.view">
+            <field name = 'name'> Patient</field>
+            <field name = 'model' >hms.patient</field>
+            <field name="arch" type = 'xml'>
+                <tree>
+                    <field name="first_name"/>
+                    <field name = 'last_name'/>
+                </tree> 
+            </field>
+        </record>
+
+
+        <record id = 'patient_form_view' model="ir.ui.view">
+            <field name = 'name'> Patient</field>
+            <field name = 'model' >hms.patient</field>
+            <field name="arch" type = 'xml'>
+                <form>
+                    <sheet>
+                        <notebook>
+                            <page string = 'Patient Information'>
+                               <group string = 'General Patient Information'>
+                                   <field name="first_name" required = 'True'/>
+                                   <field name = 'last_name' required = 'True'/>
+                                   <field name="birth_date"/>
+                                   <field name="email"/>
+                                   <field name="history" attrs = "{ 'invisible' :[('age', '&lt;' , '50')]}"/>
+                                   <field name="cr_ratio" attrs = "{ 'required' :[('PCR','=',True)]}"/>
+                                   <field name="blood_type"/>
+                                   <field name="PCR"/>
+                                   <field name="img"/>
+                                   <field name="address"/>
+                                   <field name="age"/>
+                                   <field name="status"/>
+                                   <field  name="doctors_ids" widget="many2many_tags" attrs = "{ 'readonly' :[('department_id','=',False)]}"/>
+                               </group>
+                            </page>
+                            <page string = 'Department Information'>
+                                <group string="Department Information">
+                                    <field name="department_id" domain = "[('is_opened' , '=' , True)]"/>
+                                    <field name="department_capacity"/>
+                                </group>
+                            </page>
+                            <page string ='Status Logs'>
+                                <group>
+                                    <field name="patient_log_status" options="{'no_create': True, 'no_create_edit':True}">
+                                        <tree>
+                                            <field name = 'create_uid'/>
+                                            <field name="create_date"/>
+                                            <field name="description"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <menuitem name="HMS" id = 'hms_menu'/>
+         <menuitem name = 'patients' id = 'patient_menu' parent="hms_menu"
+        action = 'hms_patient_action' />
+    </data>
+</odoo>

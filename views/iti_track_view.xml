@@ -1,0 +1,39 @@
+<odoo>
+    <data>
+
+        <record id = 'iti_track_action'
+                model = 'ir.actions.act_window'>
+                <field name="res_model">iti.track</field>
+            <field name="name"> Tracks</field>
+        </record>
+
+         <record id = 'iti_track_form_view' model="ir.ui.view">
+            <field name="name"> Track Form View</field>
+            <field name="model" >iti.track</field>
+            <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <notebook>
+                        <page string = 'Track Data'>
+                <group>
+                <field name="name"/>
+                <field name="is_opened"/>
+                <field name="capacity"/>
+
+                </group>
+                        </page>
+                        <page string = 'Student Data'>
+                            <group>
+                            <field name="student_ids"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+            </field>
+        </record>
+
+         <menuitem name = 'Tracks' id = 'track_menu' parent="iti_menu"
+        action = 'iti_track_action' sequence="1"/>
+    </data>
+</odoo>
